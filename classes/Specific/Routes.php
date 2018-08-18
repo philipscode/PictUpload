@@ -23,13 +23,23 @@ class Routes
 
     public function getRoutes()
     {
-        $picturesController = new \Specific\Controllers\PictController($this->picturesTable);
+        $picturesController = new \Specific\Controllers\PictController($this->picturesTable, $this->usersTable);
 
         $routes = [
             '' => [
                 'GET' => [
                     'controller' => $picturesController,
                     'action' => 'listPictures'
+                ]
+            ],
+            'picture/add' => [
+                'GET' => [
+                    'controller' => $picturesController,
+                    'action' => 'add'
+                ],
+                'POST' => [
+                    'controller' => $picturesController,
+                    'action' => 'save'
                 ]
             ]
         ];

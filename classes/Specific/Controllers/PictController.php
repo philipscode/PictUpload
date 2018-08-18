@@ -13,10 +13,12 @@ namespace Specific\Controllers;
 class PictController
 {
     private $picturesTable;
+    private $usersTable;
 
-    public function __construct(\General\DatabaseTable $picturesTable)
+    public function __construct(\General\DatabaseTable $picturesTable, \General\DatabaseTable $usersTable)
     {
         $this->picturesTable = $picturesTable;
+        $this->usersTable = $usersTable;
     }
 
     public function listPictures()
@@ -42,5 +44,38 @@ class PictController
                 'pictures' => $pictures
             ]
         ];
+    }
+
+    public function add()
+    {
+        return [
+            'title' => 'Add Picture',
+            'template' => 'addPicture.html.php',
+            'variables' => [
+                'user' => $this->usersTable->findById(1)
+            ]
+        ];
+    }
+
+    public function save()
+    {
+        $user = $this->usersTable->findById($_POST['picture']['userId']);
+        $picture = $_POST['picture'];
+        var_dump($picture);
+        $picture['date'] = new \DateTime();
+        $picture['name'] = basename($_FILES["fileToUpload"]["name"], ".jpg");
+        $picture['id'] = null;
+
+        $uploadDir = __DIR__.'/../../../uploads/';
+        $uploadFile = $uploadDir . basename($_FILES["fileToUpload"]["name"]);
+
+        if (!move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $uploadFile)) {
+            echo 'error';
+            header('location: error/upload');
+        }
+
+        $pictureEntity = $user->addPicture($picture);
+
+        header("location: /");
     }
 }

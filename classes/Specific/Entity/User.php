@@ -16,10 +16,16 @@ class User
     public $email;
     public $password;
     private $picturesTable;
-    private $picture;
 
     public function __construct(\General\DatabaseTable $picturesTable)
     {
         $this->picturesTable = $picturesTable;
+    }
+
+    public function addPicture($picture)
+    {
+        $picture['userId'] = $this->id;
+
+        return $this->picturesTable->save($picture);
     }
 }

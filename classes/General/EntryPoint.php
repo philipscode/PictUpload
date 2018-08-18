@@ -53,7 +53,7 @@ class EntryPoint
         $page = $controller->$action();
 
         $title = $page['title'];
-        $output = $this->loadTemplate($page['template'], $page['variables'])    ;
+        $output = $this->loadTemplate($page['template'], $page['variables']);
 
         echo $this->loadTemplate('layout.html.php', ['output' => $output, 'title' => $title]);
     }

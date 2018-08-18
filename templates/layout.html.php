@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" lang="en">
     <title><?=$title?></title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <nav>

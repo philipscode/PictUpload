@@ -1,5 +1,6 @@
 <?php
 
+
 namespace General;
 
 
@@ -25,6 +26,16 @@ class DatabaseTable
         return $query;
     }
 
+    private function processDates($fields)
+    {
+        foreach ($fields as $key => $value) {
+            if ($value instanceof \DateTime) {
+                $fields[$key] = $value->format('Y-m-d');
+            }
+        }
+        return $fields;
+    }
+
     public function findAll()
     {
         $sql = 'SELECT * FROM `' . $this->table . '`';
@@ -45,5 +56,37 @@ class DatabaseTable
         $query = $this->query($sql, $parameters);
 
         return $query->fetchObject($this->className, $this->constructorArgs);
+    }
+
+    public function insert($fields)
+    {
+        $sql = 'INSERT INTO `' . $this->table . '` SET ';
+
+        foreach ($fields as $key => $value) {
+            $sql .= '`' . $key . '`' . ' = :' . $key . ', ';
+        }
+
+        $sql = rtrim($sql, ', ');
+
+        $fields = $this->processDates($fields);
+
+        $this->query($sql, $fields);
+
+        return $this->pdo->lastInsertId();
+    }
+
+    public function save($record)
+    {
+        $entity = new $this->className(...$this->constructorArgs);
+
+        $entity->id = $this->insert($record);
+
+        foreach ($record as $key => $value) {
+            if (!empty($value)) {
+                $entity->$key = $value;
+            }
+        }
+
+        return $entity;
     }
 }
