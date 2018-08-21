@@ -8,6 +8,7 @@
 
 
 namespace Specific\Controllers;
+use \General\DatabaseTable;
 
 
 class PictController
@@ -15,7 +16,7 @@ class PictController
     private $picturesTable;
     private $usersTable;
 
-    public function __construct(\General\DatabaseTable $picturesTable, \General\DatabaseTable $usersTable)
+    public function __construct(DatabaseTable $picturesTable, DatabaseTable $usersTable)
     {
         $this->picturesTable = $picturesTable;
         $this->usersTable = $usersTable;
@@ -26,7 +27,6 @@ class PictController
         $pictures = $this->picturesTable->findAll();
 
         $files = glob(__DIR__.'/../../../public/images/*');
-        echo __DIR__.'../../../public/images/*';
         foreach ($files as $file) {
             if (is_file($file)) {
                 unlink($file);
@@ -61,7 +61,6 @@ class PictController
     {
         $user = $this->usersTable->findById($_POST['picture']['userId']);
         $picture = $_POST['picture'];
-        var_dump($picture);
         $picture['date'] = new \DateTime();
         $picture['name'] = basename($_FILES["fileToUpload"]["name"], ".jpg");
         $picture['id'] = null;

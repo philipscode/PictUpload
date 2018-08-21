@@ -11,12 +11,13 @@ nav {
     position: fixed;
     top: 0;
     width: 100%;
+    opacity: 0.1;
 }
 
 nav a {
     float: left;
     color: whitesmoke;
-    padding: 14px 16px;
+    padding: 12px 16px;
     text-decoration: none;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
@@ -31,10 +32,38 @@ nav .panel.right {
     float: right;
 }
 
-nav a:hover {
+nav a:hover, .login-container button:hover {
     background: #e57a22;
     color: black;
 }
+
+.panel.right .login-container {
+    float: left;
+}
+
+.panel.right a {
+    float: right;
+}
+
+.login-container button {
+    float: right;
+    color: whitesmoke;
+    background-color: #226de5;
+    padding: 12px 16px;
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.login-container input {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    padding: 6px;
+    margin-top: 12px;
+    border: none;
+}
+
 
 main {
     margin-top: 80px;
@@ -67,4 +96,43 @@ footer p {
 .content img {
     max-width: 100%;
     max-height: 100%;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+.form-container button {
+    float: left;
+    border: none;
+    cursor: pointer;
+    padding: 12px 16px;
+    width: 30%;
+    background: #226de5;
+    color: whitesmoke;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.form-container button:hover {
+    background: #e57a22;
+    color: black;
+}
+
+.form-container label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.form-container {
+    margin: 100px 33%;
 }

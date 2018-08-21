@@ -8,11 +8,22 @@
 <body>
 <nav>
     <div class="panel left">
-        <a href="">PictUpload</a>
+        <a href="/">PictUpload</a>
     </div>
     <div class="panel right">
-        <a href="">LOG IN</a>
-        <a href="">SIGN UP</a>
+        <?php if ($loggedIn): ?>
+        <a href="">+</a>
+        <a href="/logout">LOG OUT</a>
+        <?php else: ?>
+        <div class="login-container">
+            <form action="/login" method="post">
+                <input type="text" name="name" placeholder="Username">
+                <input type="password" name="password" placeholder="Password">
+                <button type="submit">LOGIN</button>
+            </form>
+        </div>
+        <a href="/user/register">SIGN UP</a>
+        <?php endif; ?>
     </div>
 </nav>
 <main>

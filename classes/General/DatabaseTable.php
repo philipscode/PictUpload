@@ -58,6 +58,19 @@ class DatabaseTable
         return $query->fetchObject($this->className, $this->constructorArgs);
     }
 
+    public function find($field, $value)
+    {
+        $sql = 'SELECT * FROM `' . $this->table . '` WHERE `' . $field . '` = :' . $field;
+
+        $parameters = [
+            $field => $value
+        ];
+
+        $query = $this->query($sql, $parameters);
+
+        return $query->fetchAll(\PDO::FETCH_CLASS, $this->className, $this->constructorArgs);
+    }
+
     public function insert($fields)
     {
         $sql = 'INSERT INTO `' . $this->table . '` SET ';
@@ -79,6 +92,9 @@ class DatabaseTable
     {
         $entity = new $this->className(...$this->constructorArgs);
 
+        if (!isset($record['id'])) {
+            $record['id'] = null;
+        }
         $entity->id = $this->insert($record);
 
         foreach ($record as $key => $value) {
