@@ -24,7 +24,7 @@ class Routes
 
         $this->picturesTable = new DatabaseTable($pdo, 'pictures', '\Specific\Entity\Picture', [&$this->usersTable]);
         $this->usersTable = new DatabaseTable($pdo, 'users', '\Specific\Entity\User', [&$this->picturesTable]);
-        $this->commentsTable = new DatabaseTable($pdo, 'comments', '\Specific\Entity\Comment', [$this->picturesTable, $this->usersTable]);
+        $this->commentsTable = new DatabaseTable($pdo, 'comments', '\Specific\Entity\Comment', [$this->usersTable]);
         $this->authentication = new \General\Authentication($this->usersTable, 'name', 'password');
     }
 

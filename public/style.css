@@ -88,12 +88,13 @@ footer p {
 
 .content {
     display: block;
-    margin: 100px 33%;
+    margin: 70px 33%;
     padding: 10px;
     overflow: inherit;
     background-color: whitesmoke;
     font-family: Arial, Helvetica, sans-serif;
-    border: 1px solid black;
+    border: 0.5px solid gray;
+    border-radius: 5px;
 }
 
 .content .info {
@@ -197,5 +198,52 @@ footer p {
 }
 
 #delete-button:hover {
+    background-color: #7c074d;
+}
+
+.comments {
+    margin: 20px 33%;
+}
+
+.comment {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 10px 0;
+    background-color: whitesmoke;
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+.comment .info p {
+    display: inline;
+    margin-right: 20px;
+    margin-left: 2px;
+    opacity: 0.5;
+}
+
+.comment-text {
+    border-top: 1px solid black;
+}
+
+.add-comment textarea {
+    width: 50%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+.add-comment form button {
+    display: block;
+    border: none;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    padding: 5px 15px;
+    background-color: #f44289;
+    color: white;
+}
+
+.add-comment form button:hover {
     background-color: #7c074d;
 }
