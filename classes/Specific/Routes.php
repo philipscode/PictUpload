@@ -15,6 +15,7 @@ class Routes
 {
     private $picturesTable;
     private $usersTable;
+    private $commentsTable;
     private $authentication;
 
     public function __construct()
@@ -23,6 +24,7 @@ class Routes
 
         $this->picturesTable = new DatabaseTable($pdo, 'pictures', '\Specific\Entity\Picture', [&$this->usersTable]);
         $this->usersTable = new DatabaseTable($pdo, 'users', '\Specific\Entity\User', [&$this->picturesTable]);
+        $this->commentsTable = new DatabaseTable($pdo, 'comments', '\Specific\Entity\Comment', [$this->picturesTable, $this->usersTable]);
         $this->authentication = new \General\Authentication($this->usersTable, 'name', 'password');
     }
 
@@ -31,6 +33,7 @@ class Routes
         $picturesController = new \Specific\Controllers\PictController($this->picturesTable, $this->usersTable);
         $usersController = new \Specific\Controllers\UserController($this->usersTable);
         $loginController = new \Specific\Controllers\LoginController($this->authentication);
+        $commentsController = new \Specific\Controllers\CommentController($this->commentsTable, $this->picturesTable, $this->usersTable);
 
         $routes = [
             '' => [
@@ -47,6 +50,13 @@ class Routes
                 'POST' => [
                     'controller' => $picturesController,
                     'action' => 'save'
+                ],
+                'login' => true
+            ],
+            'picture/delete' => [
+                'POST' => [
+                    'controller' => $picturesController,
+                    'action' => 'delete'
                 ],
                 'login' => true
             ],
@@ -76,6 +86,18 @@ class Routes
                 'GET' => [
                     'controller' => $loginController,
                     'action' => 'logout'
+                ]
+            ],
+            'comments' => [
+                'GET' => [
+                    'controller' => $commentsController,
+                    'action' => 'show'
+                ]
+            ],
+            'comments/add' => [
+                'POST' => [
+                    'controller' => $commentsController,
+                    'action' => 'add'
                 ]
             ]
         ];

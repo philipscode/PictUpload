@@ -52,7 +52,7 @@ class PictController
             'title' => 'Add Picture',
             'template' => 'addPicture.html.php',
             'variables' => [
-                'user' => $this->usersTable->findById(1)
+                'user' => $this->usersTable->findById($_SESSION['id'])
             ]
         ];
     }
@@ -76,5 +76,17 @@ class PictController
         $pictureEntity = $user->addPicture($picture);
 
         header("location: /");
+    }
+
+    public function delete()
+    {
+        $pictureId = $_POST['pictureId'];
+        $filename = $this->picturesTable->findById($pictureId)->name;
+
+        $this->picturesTable->delete($pictureId);
+
+        unlink(__DIR__.'/../../../uploads/' . $filename . '.jpg');
+
+        header('location: /');
     }
 }

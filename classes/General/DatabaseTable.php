@@ -105,4 +105,15 @@ class DatabaseTable
 
         return $entity;
     }
+
+    public function delete($value)
+    {
+        $sql = 'DELETE FROM `' . $this->table . '` WHERE `id` = :value';
+
+        $parameters = [
+            'value' => $value
+        ];
+
+        $this->query($sql, $parameters);
+    }
 }

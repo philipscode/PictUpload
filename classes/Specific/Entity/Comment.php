@@ -2,22 +2,21 @@
 /**
  * Created by PhpStorm.
  * User: philip
- * Date: 8/17/18
- * Time: 9:02 PM
+ * Date: 8/24/18
+ * Time: 12:23 PM
  */
 
 namespace Specific\Entity;
 
 
-class Picture
+class Comment
 {
     public $id;
-    public $name;
-    public $caption;
-    public $date;
     public $userId;
+    public $pictureId;
+    public $date;
+    public $text;
     private $usersTable;
-    private $user;
 
     public function __construct(\General\DatabaseTable $usersTable)
     {
@@ -26,11 +25,8 @@ class Picture
 
     public function getUser()
     {
-        if (empty($this->user)) {
-            $this->user = $this->usersTable->findById($this->userId);
-        }
+        $user = $this->usersTable->findById($this->userId);
 
-        return $this->user;
+        return $user;
     }
-
 }

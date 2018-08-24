@@ -12,7 +12,7 @@
     </div>
     <div class="panel right">
         <?php if ($loggedIn): ?>
-        <a href="">+</a>
+        <a href="/picture/add">+</a>
         <a href="/logout">LOG OUT</a>
         <?php else: ?>
         <div class="login-container">
